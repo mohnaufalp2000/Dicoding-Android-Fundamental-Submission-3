@@ -1,21 +1,24 @@
 package com.naufal.githubuser.fragment
 
+import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufal.githubuser.adapter.FavoriteAdapter
+import com.naufal.githubuser.database.FavoriteHelper
 import com.naufal.githubuser.databinding.FragmentFavoriteBinding
-import com.naufal.githubuser.viewmodel.FavoriteViewModel
+import com.naufal.githubuser.helper.MappingHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment() {
 
     private var binding : FragmentFavoriteBinding? = null
-    private val mFavoriteViewModel by lazy { ViewModelProvider(this).get(FavoriteViewModel::class.java) }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,20 +32,22 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mFavoriteViewModel.getAllData()?.observe(viewLifecycleOwner,{
-
-            if (it.isNotEmpty()){
+        GlobalScope.launch(Dispatchers.Main) {
+            val databaseHelper = context?.let { FavoriteHelper.getInstance(it) }
+            databaseHelper?.open()
+            val deffered = async(Dispatchers.IO) {
+                val cursor = databaseHelper?.getFavorites()
+                MappingHelper.mapCursorToArrayList(cursor)
+            }
+            val favoriteList = deffered.await()
+            val adapter = FavoriteAdapter(favoriteList)
+            if (favoriteList.isNotEmpty()){
                 binding?.apply {
                     emptyUser.visibility = View.GONE
                     rvFavorite.visibility = View.VISIBLE
-
-                    val adapter = FavoriteAdapter(it)
-                    binding?.apply {
-                        rvFavorite.setHasFixedSize(true)
-                        rvFavorite.layoutManager = LinearLayoutManager(context)
-                        rvFavorite.adapter = adapter
-                    }
-                    adapter.notifyDataSetChanged()
+                    rvFavorite.setHasFixedSize(true)
+                    rvFavorite.layoutManager = LinearLayoutManager(context)
+                    rvFavorite.adapter = adapter
                 }
             } else {
                 binding?.apply {
@@ -50,12 +55,11 @@ class FavoriteFragment : Fragment() {
                     rvFavorite.visibility = View.GONE
                 }
             }
-
-
-
-        })
+            databaseHelper?.close()
+        }
 
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
