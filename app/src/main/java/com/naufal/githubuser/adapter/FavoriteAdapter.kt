@@ -9,7 +9,7 @@ import com.naufal.githubuser.activity.DetailActivity
 import com.naufal.githubuser.databinding.ItemListBinding
 import com.naufal.githubuser.model.Favorite
 
-class FavoriteAdapter(private val list : List<Favorite>) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
+class FavoriteAdapter(private val list : ArrayList<Favorite>) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 

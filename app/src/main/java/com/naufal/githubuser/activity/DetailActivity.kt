@@ -1,6 +1,5 @@
 package com.naufal.githubuser.activity
 
-import android.content.ContentValues
 import android.database.Cursor
 import android.icu.text.CompactDecimalFormat
 import android.icu.text.SimpleDateFormat
@@ -13,8 +12,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.naufal.githubuser.R
 import com.naufal.githubuser.adapter.TabDetailAdapter
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.DATE
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.LOGIN
 import com.naufal.githubuser.database.FavoriteHelper
 import com.naufal.githubuser.databinding.ActivityDetailBinding
 import com.naufal.githubuser.viewmodel.DetailViewModel
@@ -57,10 +54,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupFavoriteList(username: String?, id: Int, avatar: String?) {
-        var state = false
+        var state: Boolean
 
         db.open()
         val cursor: Cursor = db.isFavorite(id)
+
         state = if (cursor.moveToNext()){
             binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_24)
             true
@@ -83,9 +81,7 @@ class DetailActivity : AppCompatActivity() {
                 binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_border_24)
                 db.removeFavorite(id)
             }
-
         }
-
     }
 
 
