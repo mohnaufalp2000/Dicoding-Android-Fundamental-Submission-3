@@ -2,7 +2,7 @@ package com.naufal.consumerapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufal.consumerapp.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.naufal.consumerapp.databinding.ActivityMainBinding
@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val adapter = FavoriteAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 

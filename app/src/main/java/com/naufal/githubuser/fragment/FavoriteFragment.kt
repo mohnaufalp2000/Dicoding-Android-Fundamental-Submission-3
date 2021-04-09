@@ -25,8 +25,9 @@ import kotlinx.coroutines.launch
 class FavoriteFragment : Fragment() {
 
     companion object{
-        private const val EXTRA_STATE = "EXTRA_STATE"
+        const val EXTRA_STATE = "EXTRA_STATE"
     }
+
 
     private var binding : FragmentFavoriteBinding? = null
     private val adapter = FavoriteAdapter()
@@ -39,25 +40,6 @@ class FavoriteFragment : Fragment() {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding?.root
     }
-
-    override fun onResume() {
-        super.onResume()
-
-        val handlerThread = HandlerThread("DataObserver")
-        handlerThread.start()
-        val handler = Handler(handlerThread.looper)
-
-        val myObserver = object : ContentObserver(handler){
-            override fun onChange(selfChange: Boolean) {
-                      loadNotesAsync()
-            }
-        }
-
-        activity?.contentResolver?.registerContentObserver(CONTENT_URI, true, myObserver)
-
-
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,18 +55,22 @@ class FavoriteFragment : Fragment() {
         }
 
         activity?.contentResolver?.registerContentObserver(CONTENT_URI, true, myObserver)
+    }
 
-        if (savedInstanceState == null) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        if (savedInstanceState != null) {
             loadNotesAsync()
         } else {
-            savedInstanceState.getParcelableArrayList<Favorite>(EXTRA_STATE)?.also { adapter.list = it }
+            loadNotesAsync()
         }
 
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelableArrayList(EXTRA_STATE, adapter.list)
         super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapter.list)
     }
 
     private fun loadNotesAsync() {
