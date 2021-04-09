@@ -1,11 +1,11 @@
-package com.naufal.githubuser.helper
+package com.naufal.consumerapp
 
 import android.database.Cursor
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.AVATARURL
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.DATE
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.ID
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.LOGIN
-import com.naufal.githubuser.model.Favorite
+import com.naufal.consumerapp.DatabaseContract.FavoriteColumns.Companion.AVATARURL
+import com.naufal.consumerapp.DatabaseContract.FavoriteColumns.Companion.DATE
+import com.naufal.consumerapp.DatabaseContract.FavoriteColumns.Companion.ID
+import com.naufal.consumerapp.DatabaseContract.FavoriteColumns.Companion.LOGIN
+
 
 object MappingHelper {
 

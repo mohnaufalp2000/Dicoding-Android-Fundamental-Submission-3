@@ -36,21 +36,7 @@ class FavoriteHelper(context: Context) {
         sqLiteDatabase = databaseHelper.writableDatabase
     }
 
-    fun close(){
-        databaseHelper.close()
-
-        if (sqLiteDatabase.isOpen){
-            sqLiteDatabase.close()
-        }
-    }
-
-    fun addFavorite(id: Int, username: String?, avatar: String?, date: String?) : Long{
-        val values = ContentValues().apply {
-            put(ID, id)
-            put(LOGIN, username)
-            put(AVATARURL, avatar)
-            put(DATE, date)
-        }
+    fun addFavorite(values: ContentValues) : Long{
         return sqLiteDatabase.insert(DATABASE_TABLE, null, values)
     }
 

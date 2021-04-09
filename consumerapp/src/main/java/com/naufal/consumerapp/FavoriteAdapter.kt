@@ -1,13 +1,12 @@
-package com.naufal.githubuser.adapter
+package com.naufal.consumerapp
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.naufal.githubuser.activity.DetailActivity
-import com.naufal.githubuser.databinding.ItemListBinding
-import com.naufal.githubuser.model.Favorite
+import com.naufal.consumerapp.databinding.ItemListBinding
+
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
@@ -30,15 +29,6 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
             .load(list[position].avatarUrl)
             .into(holder.binding.imgProfileList)
 
-        holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, DetailActivity::class.java)
-            intent.apply {
-                putExtra(DetailActivity.USER, list[position].login)
-                putExtra(DetailActivity.ID, list[position].id)
-                putExtra(DetailActivity.AVATAR, list[position].avatarUrl)
-            }
-            it.context.startActivity(intent)
-        }
     }
 
     override fun getItemCount(): Int = list.size

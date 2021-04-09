@@ -1,5 +1,6 @@
 package com.naufal.githubuser.activity
 
+import android.content.ContentValues
 import android.database.Cursor
 import android.icu.text.CompactDecimalFormat
 import android.icu.text.SimpleDateFormat
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.naufal.githubuser.R
 import com.naufal.githubuser.adapter.TabDetailAdapter
+import com.naufal.githubuser.database.DatabaseContract
 import com.naufal.githubuser.database.FavoriteHelper
 import com.naufal.githubuser.databinding.ActivityDetailBinding
 import com.naufal.githubuser.viewmodel.DetailViewModel
@@ -28,7 +30,6 @@ class DetailActivity : AppCompatActivity() {
         ).get(DetailViewModel::class.java)
     }
     private val db = FavoriteHelper(this)
-
 
     companion object {
         const val USER = "user"
@@ -75,8 +76,13 @@ class DetailActivity : AppCompatActivity() {
             if(state){
                 binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_24)
                 db.open()
-                db.addFavorite(id, username, avatar, dateFormat.format(date))
-                db.close()
+                val values = ContentValues().apply {
+                    put(DatabaseContract.FavoriteColumns.ID, id)
+                    put(DatabaseContract.FavoriteColumns.LOGIN, username)
+                    put(DatabaseContract.FavoriteColumns.AVATARURL, avatar)
+                    put(DatabaseContract.FavoriteColumns.DATE, dateFormat.format(date))
+                }
+                db.addFavorite(values)
             } else {
                 binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_border_24)
                 db.removeFavorite(id)

@@ -1,8 +1,7 @@
-package com.naufal.githubuser.database
+package com.naufal.consumerapp
 
 import android.net.Uri
 import android.provider.BaseColumns
-import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.TABLE_NAME
 
 object DatabaseContract {
 
