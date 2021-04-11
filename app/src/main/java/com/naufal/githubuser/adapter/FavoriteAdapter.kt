@@ -13,6 +13,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     var list = ArrayList<Favorite>()
     set(list) {
+        list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
     }

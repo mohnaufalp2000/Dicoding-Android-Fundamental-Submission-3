@@ -1,7 +1,6 @@
 package com.naufal.githubuser.fragment
 
 import android.database.ContentObserver
-import android.database.Cursor
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -9,24 +8,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.UiThread
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufal.githubuser.adapter.FavoriteAdapter
 import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.naufal.githubuser.database.FavoriteHelper
 import com.naufal.githubuser.databinding.FragmentFavoriteBinding
 import com.naufal.githubuser.helper.MappingHelper
-import com.naufal.githubuser.model.Favorite
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class FavoriteFragment : Fragment() {
-
-    companion object{
-        const val EXTRA_STATE = "EXTRA_STATE"
-    }
 
 
     private var binding : FragmentFavoriteBinding? = null
@@ -55,22 +48,12 @@ class FavoriteFragment : Fragment() {
         }
 
         activity?.contentResolver?.registerContentObserver(CONTENT_URI, true, myObserver)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        if (savedInstanceState != null) {
-            loadNotesAsync()
-        } else {
-            loadNotesAsync()
-        }
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(EXTRA_STATE, adapter.list)
+    override fun onResume() {
+        super.onResume()
+        loadNotesAsync()
     }
 
     private fun loadNotesAsync() {
@@ -101,7 +84,6 @@ class FavoriteFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

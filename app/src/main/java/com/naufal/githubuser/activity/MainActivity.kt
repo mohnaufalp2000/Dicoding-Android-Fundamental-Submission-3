@@ -9,13 +9,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.naufal.githubuser.R
 import com.naufal.githubuser.databinding.ActivityMainBinding
 import com.naufal.githubuser.fragment.FavoriteFragment
-import com.naufal.githubuser.fragment.FavoriteFragment.Companion.EXTRA_STATE
+
 
 class MainActivity : AppCompatActivity() {
 
 
     private val binding by lazy {ActivityMainBinding.inflate(layoutInflater)}
-    private var favFragment : Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

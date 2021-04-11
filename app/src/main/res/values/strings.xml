@@ -39,4 +39,7 @@
     <string name="view_more">View more</string>
     <string name="not_found">Not Found</string>
     <string name="cannot_find_the_user">Cannot find the user</string>
+    <string name="app">App</string>
+    <string name="key_reminder">reminder</string>
+
 </resources>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.naufal.githubuser.R
 import com.naufal.githubuser.databinding.FragmentSettingsBinding
+import com.naufal.githubuser.preference.PreferenceSettings
 
 class SettingsFragment : Fragment() {
 
@@ -19,6 +20,12 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        childFragmentManager.beginTransaction().add(R.id.settings_holder, PreferenceSettings()).commit()
     }
 
     override fun onDestroy() {
