@@ -41,6 +41,7 @@ class FollowerFragment : Fragment() {
         mFollowerViewModel.getFollowerViewModel(username).observe(viewLifecycleOwner, {
             val adapter = UserFollowerAdapter(it)
             binding?.apply {
+                pbFollower.visibility = View.GONE
                 rvFollower.setHasFixedSize(true)
                 rvFollower.layoutManager = LinearLayoutManager(context)
                 rvFollower.adapter = adapter

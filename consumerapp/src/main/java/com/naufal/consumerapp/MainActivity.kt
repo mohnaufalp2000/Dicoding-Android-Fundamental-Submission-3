@@ -2,6 +2,7 @@ package com.naufal.consumerapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufal.consumerapp.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
@@ -35,10 +36,19 @@ class MainActivity : AppCompatActivity() {
 
             adapter.list.addAll(favoriteList)
 
-            binding.apply {
-                rvFavConsumer.setHasFixedSize(true)
-                rvFavConsumer.layoutManager = LinearLayoutManager(this@MainActivity)
-                rvFavConsumer.adapter = adapter
+            if (favoriteList.isNotEmpty()){
+                binding.apply {
+                    notFound.visibility = View.GONE
+                    rvFavConsumer.visibility = View.VISIBLE
+                    rvFavConsumer.setHasFixedSize(true)
+                    rvFavConsumer.layoutManager = LinearLayoutManager(this@MainActivity)
+                    rvFavConsumer.adapter = adapter
+                }
+            } else {
+                binding.apply {
+                    notFound.visibility = View.VISIBLE
+                    rvFavConsumer.visibility = View.GONE
+                }
             }
 
         }

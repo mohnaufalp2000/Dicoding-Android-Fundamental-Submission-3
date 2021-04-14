@@ -1,9 +1,11 @@
 package com.naufal.githubuser.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.naufal.githubuser.activity.DetailActivity
 import com.naufal.githubuser.databinding.ItemListBinding
 import com.naufal.githubuser.model.Follower
 
@@ -21,6 +23,17 @@ class UserFollowerAdapter(private val list: ArrayList<Follower>) : RecyclerView.
             .into(holder.binding.imgProfileList)
 
         holder.binding.txtUsernameList.text = list[position].login
+        holder.binding.txtTypeUser.text = list[position].type
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, DetailActivity::class.java)
+            intent.apply {
+                putExtra(DetailActivity.USER, list[position].login)
+                putExtra(DetailActivity.ID, list[position].id)
+                putExtra(DetailActivity.AVATAR, list[position].avatarUrl)
+            }
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = list.size

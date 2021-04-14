@@ -1,5 +1,7 @@
 package com.naufal.githubuser.viewmodel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +16,7 @@ class SearchViewModel : ViewModel() {
 
     private val listUser = MutableLiveData<ArrayList<ItemsItem>?>()
 
-    fun setSearchViewModelUser(username: String){
+    fun setSearchViewModelUser(username: String, context: Context){
         ConfigNetwork.getUser().searchDataUser(username).enqueue(object : Callback<Search>{
             override fun onResponse(call: Call<Search>, response: Response<Search>) {
                 val body = response.body()?.items
@@ -23,7 +25,7 @@ class SearchViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<Search>, t: Throwable) {
-
+                Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
             }
 
         })

@@ -43,6 +43,7 @@ class FollowingFragment : Fragment() {
         mFollowingViewModel.getFollowingViewModel(username).observe(viewLifecycleOwner, {
             val adapter = UserFollowingAdapter(it)
             binding?.apply {
+                pbFollowing.visibility = View.GONE
                 rvFollowing.setHasFixedSize(true)
                 rvFollowing.layoutManager = LinearLayoutManager(context)
                 rvFollowing.adapter = adapter

@@ -41,5 +41,15 @@
     <string name="cannot_find_the_user">Cannot find the user</string>
     <string name="app">App</string>
     <string name="key_reminder">reminder</string>
+    <string name="let_s_find_user">Find User</string>
+    <string name="user_list_will_appear_here">User list will appear here</string>
+    <string name="image_find_user_content">image find user</string>
+    <string name="language">Language</string>
+    <string name="key_language">language</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="reminder_on">Reminder Successfully Set On</string>
+    <string name="reminder_off">Reminder Successfully Set Off</string>
+    <string name="success_remove">Success Remove Favorite</string>
+    <string name="success_add">Success Add Favorite</string>
 
 </resources>

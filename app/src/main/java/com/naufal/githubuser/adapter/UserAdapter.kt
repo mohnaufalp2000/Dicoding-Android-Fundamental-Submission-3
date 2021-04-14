@@ -19,6 +19,7 @@ class UserAdapter(private val list : ArrayList<ItemsItem>?) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.txtUsernameList.text = list?.get(position)?.login
+        holder.binding.txtTypeUser.text = list?.get(position)?.type
 
         Glide.with(holder.itemView.context)
             .load(list?.get(position)?.avatarUrl)

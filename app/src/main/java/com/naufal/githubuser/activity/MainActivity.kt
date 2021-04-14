@@ -3,13 +3,10 @@ package com.naufal.githubuser.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.naufal.githubuser.R
 import com.naufal.githubuser.databinding.ActivityMainBinding
-import com.naufal.githubuser.fragment.FavoriteFragment
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragment)
         binding.btmNavigation.setupWithNavController(navController)
     }
+
 
 
 }

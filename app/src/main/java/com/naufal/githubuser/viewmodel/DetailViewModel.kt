@@ -1,8 +1,14 @@
 package com.naufal.githubuser.viewmodel
 
+import android.app.Activity
+import android.app.Application
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.naufal.githubuser.activity.DetailActivity
+import com.naufal.githubuser.activity.MainActivity
 import com.naufal.githubuser.model.DetailUser
 import com.naufal.githubuser.model.Follower
 import com.naufal.githubuser.model.Following
@@ -17,7 +23,7 @@ class DetailViewModel : ViewModel() {
     private val listFollowerUser = MutableLiveData<ArrayList<Follower>>()
     private val listFollowingUser = MutableLiveData<ArrayList<Following>>()
 
-    fun getDetailViewModel(username : String?) : LiveData<DetailUser?>{
+    fun getDetailViewModel(username : String?, context: Context) : LiveData<DetailUser?>{
 
         ConfigNetwork.getUser().getDetailDataUser(username).enqueue(object : Callback<DetailUser>{
             override fun onResponse(call: Call<DetailUser>, response: Response<DetailUser>) {
@@ -40,6 +46,7 @@ class DetailViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<DetailUser>, t: Throwable) {
+                Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
             }
 
         })

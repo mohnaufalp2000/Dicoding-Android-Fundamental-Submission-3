@@ -69,7 +69,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun userListSetup() {
-        mHomeViewModel.getUserHomeViewModel().observe(viewLifecycleOwner, {
+        mHomeViewModel.getUserHomeViewModel(context).observe(viewLifecycleOwner, {
+            binding?.apply {
+                shimmerRvUserList.stopShimmerAnimation()
+                shimmerRvUserList.visibility = View.GONE
+                rvUserList.visibility = View.VISIBLE
+                txtViewMore.visibility = View.VISIBLE
+            }
             val list = ArrayList<ItemsItem>()
             list.clear()
             for (i in 0..2){
@@ -85,6 +91,16 @@ class HomeFragment : Fragment() {
             }
             adapter.notifyDataSetChanged()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding?.shimmerRvUserList?.startShimmerAnimation()
+    }
+
+    override fun onPause() {
+        binding?.shimmerRvUserList?.stopShimmerAnimation()
+        super.onPause()
     }
 
     override fun onDestroy() {

@@ -2,6 +2,7 @@ package com.naufal.githubuser.activity
 
 import android.content.ContentValues
 import android.database.Cursor
+import android.graphics.Color
 import android.icu.text.CompactDecimalFormat
 import android.icu.text.SimpleDateFormat
 import android.icu.util.ULocale
@@ -10,6 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.naufal.githubuser.R
 import com.naufal.githubuser.adapter.TabDetailAdapter
@@ -61,10 +63,10 @@ class DetailActivity : AppCompatActivity() {
         val cursor: Cursor = db.isFavorite(id)
 
         state = if (cursor.moveToNext()){
-            binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_24)
+            binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
             true
         } else {
-            binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_border_24)
+            binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             false
         }
 
@@ -74,7 +76,13 @@ class DetailActivity : AppCompatActivity() {
             val date = Date()
 
             if(state){
-                binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_24)
+                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                val mySnackbar = Snackbar.make(
+                    binding.detailContainer,
+                    getString(R.string.success_add),
+                    Snackbar.LENGTH_LONG)
+                mySnackbar.view.setBackgroundColor(Color.rgb(92, 184, 92))
+                mySnackbar.show()
                 db.open()
                 val values = ContentValues().apply {
                     put(DatabaseContract.FavoriteColumns.ID, id)
@@ -84,15 +92,26 @@ class DetailActivity : AppCompatActivity() {
                 }
                 db.addFavorite(values)
             } else {
-                binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_star_border_24)
+                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                val mySnackbar = Snackbar.make(
+                    binding.detailContainer,
+                    getString(R.string.success_remove),
+                    Snackbar.LENGTH_LONG)
+                mySnackbar.view.setBackgroundColor(Color.rgb(92, 184, 92))
+                mySnackbar.show()
                 db.removeFavorite(id)
             }
         }
     }
 
-
     private fun showDetail(username: String?) {
-        mDetailViewModel.getDetailViewModel(username).observe(this@DetailActivity, {
+        mDetailViewModel.getDetailViewModel(username, this).observe(this@DetailActivity, {
+
+            binding.apply {
+                btnFavorite.visibility = View.VISIBLE
+                detailContent.visibility = View.VISIBLE
+                pbDetail.visibility = View.GONE
+            }
 
             val numberFormat: CompactDecimalFormat = CompactDecimalFormat.getInstance(
                 ULocale.UK,
@@ -103,10 +122,12 @@ class DetailActivity : AppCompatActivity() {
                 .load(it?.avatarUrl)
                 .into(binding.imgProfileDetail)
 
-            binding.txtDetailName.text = it?.name ?: getString(R.string.user)
-            binding.txtDetailUsername.text = it?.login
-            binding.txtDetailLocation.text = it?.location
-            binding.txtDetailRepositoryCount.text = numberFormat.format(it?.publicRepos)
+            binding.apply {
+                txtDetailName.text = it?.name ?: getString(R.string.user)
+                txtDetailUsername.text = it?.login
+                txtDetailLocation.text = it?.location
+                txtDetailRepositoryCount.text = numberFormat.format(it?.publicRepos)
+            }
 
             followers = numberFormat.format(it?.followers)
             followings = numberFormat.format(it?.following)

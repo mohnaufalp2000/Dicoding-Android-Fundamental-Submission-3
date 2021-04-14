@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Beranda</string>
+    <string name="favorite">Favorit</string>
+    <string name="settings">Pengaturan</string>
+    <string name="search_here">Cari disini…</string>
+    <string name="search">cari</string>
+    <string name="image_profile_user">Gambar Profil Pengguna</string>
+    <string name="hi">Halo,</string>
+    <string name="naufal">Naufal</string>
+    <string name="mon_nov_9_2020">Sen, 9 Nov 2020</string>
+    <string name="image_profile_account">Gambar Profil Akun</string>
+    <string name="user">Pengguna</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="guest">Pengunjung</string>
+    <string name="surabaya">Surabaya</string>
+    <string name="icon_location_content">ikon lokasi</string>
+    <string name="share">Bagikan</string>
+    <string name="detail">Detail</string>
+    <string name="icon_company_content">ikon perusahaan</string>
+    <string name="repository">Repository</string>
+    <string name="_0">0</string>
+    <string name="icon_website_content">ikon peramban</string>
+    <string name="icon_twitter">ikon twitter</string>
+    <string name="bio">Bio</string>
+    <string name="background_profile_content">latar belakang profil</string>
+    <string name="top_user">Pengguna Teratas</string>
+    <string name="what_is_github">Apa itu Github?</string>
+    <string name="list">Daftar</string>
+    <string name="favorite_user">Pengguna Terfavorit</string>
+    <string name="favorite_user_list_will_appear_here">Daftar pengguna terfavorit akan ditampilkan disini</string>
+    <string name="empty_user_list">daftart pengguna kosong</string>
+    <string name="view_more">Lihat lebih banyak</string>
+    <string name="not_found">Tidak Ditemukan</string>
+    <string name="cannot_find_the_user">Gagal menemukan pengguna</string>
+    <string name="app">App</string>
+    <string name="key_reminder">reminder</string>
+    <string name="let_s_find_user">Cari Pengguna</string>
+    <string name="user_list_will_appear_here">Daftar pengguna akan ditampilkan disini</string>
+    <string name="image_find_user_content">gambar cari pengguna</string>
+    <string name="language">Bahasa</string>
+    <string name="key_language">language</string>
+    <string name="set_reminder">Setel Pengingat</string>
+    <string name="reminder_on">Pengingat Berhasil Dinyalakan</string>
+    <string name="reminder_off">Pengingat Berhasil Dimatikan</string>
+    <string name="success_remove">Berhasil Menghapus Favorit</string>
+    <string name="success_add">Berhasil Menambahkan Favorit</string>
+
+</resources>

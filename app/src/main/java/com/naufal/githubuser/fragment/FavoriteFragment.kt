@@ -1,5 +1,7 @@
 package com.naufal.githubuser.fragment
 
+import android.content.Context
+import android.content.Intent
 import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
@@ -9,11 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naufal.githubuser.R
 import com.naufal.githubuser.adapter.FavoriteAdapter
 import com.naufal.githubuser.database.DatabaseContract.FavoriteColumns.Companion.CONTENT_URI
 import com.naufal.githubuser.database.FavoriteHelper
 import com.naufal.githubuser.databinding.FragmentFavoriteBinding
 import com.naufal.githubuser.helper.MappingHelper
+import com.naufal.githubuser.preference.PreferenceSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -53,8 +57,11 @@ class FavoriteFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        adapter.list.clear()
+        adapter.notifyDataSetChanged()
         loadNotesAsync()
     }
+
 
     private fun loadNotesAsync() {
         GlobalScope.launch(Dispatchers.Main) {
@@ -67,6 +74,7 @@ class FavoriteFragment : Fragment() {
             val favoriteList = deffered.await()
 
             adapter.list.addAll(favoriteList)
+
             if (favoriteList.isNotEmpty()){
                 binding?.apply {
                     emptyUser.visibility = View.GONE

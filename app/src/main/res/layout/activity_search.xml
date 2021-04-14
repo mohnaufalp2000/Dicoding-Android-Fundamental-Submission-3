@@ -10,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        app:elevation="0dp">
+        app:elevation="0dp"
+        app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_search"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:elevation="0dp"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
             app:elevation="0dp">
 
             <androidx.appcompat.widget.SearchView
@@ -40,7 +42,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"/>
+        android:layout_marginStart="24dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/find_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_view_find_user"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:contentDescription="@string/image_find_user_content"
+            android:src="@drawable/guy_binocular" />
+
+        <TextView
+            android:id="@+id/text_view_find_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/let_s_find_user"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/text_view_find_user_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/user_list_will_appear_here" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:visibility="gone"
@@ -79,7 +120,13 @@
             android:layout_marginTop="6dp"
             android:text="@string/cannot_find_the_user" />
 
-
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

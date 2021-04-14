@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".fragment.FollowingFragment">
 
+    <ProgressBar
+        android:id="@+id/pb_following"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_following"
         android:layout_width="match_parent"

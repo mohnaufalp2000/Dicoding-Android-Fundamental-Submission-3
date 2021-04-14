@@ -1,8 +1,10 @@
 package com.naufal.githubuser.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +15,12 @@ import com.naufal.githubuser.viewmodel.SearchViewModel
 class SearchActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySearchBinding.inflate(layoutInflater) }
-    private val mSearchViewModel by lazy { ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-        SearchViewModel::class.java) }
+    private val mSearchViewModel by lazy { ViewModelProvider(
+        this,
+        ViewModelProvider.NewInstanceFactory()
+    ).get(
+        SearchViewModel::class.java
+    ) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +34,13 @@ class SearchActivity : AppCompatActivity() {
     private fun setupSearchView() {
 
         binding.edtSearchUser.requestFocus()
-        binding.edtSearchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        binding.edtSearchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                mSearchViewModel.setSearchViewModelUser(query)
+                mSearchViewModel.setSearchViewModelUser(query, this@SearchActivity)
+                binding.apply {
+                    findUser.visibility = View.GONE
+                    pbSearch.visibility = View.VISIBLE
+                }
                 return true
             }
 
@@ -40,13 +50,27 @@ class SearchActivity : AppCompatActivity() {
 
         })
 
+        binding.edtSearchUser.setOnCloseListener {
+            Toast.makeText(this, "close", Toast.LENGTH_LONG).show()
+
+            false
+        }
+
         mSearchViewModel.getSearchViewModelUser().observe(this, {
-            if(it?.size == 0){
-                binding.notFound.visibility = View.VISIBLE
-                binding.rvHome.visibility = View.GONE
+            if (it?.size == 0) {
+                binding.apply {
+                    findUser.visibility = View.GONE
+                    notFound.visibility = View.VISIBLE
+                    rvHome.visibility = View.GONE
+                    pbSearch.visibility = View.GONE
+                }
             } else {
-                binding.notFound.visibility = View.GONE
-                binding.rvHome.visibility = View.VISIBLE
+                binding.apply {
+                    findUser.visibility = View.GONE
+                    notFound.visibility = View.GONE
+                    rvHome.visibility = View.VISIBLE
+                    pbSearch.visibility = View.GONE
+                }
                 val adapter = UserAdapter(it)
                 binding.apply {
                     rvHome.setHasFixedSize(true)

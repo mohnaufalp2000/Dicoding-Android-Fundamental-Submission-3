@@ -2,6 +2,7 @@ package com.naufal.githubuser.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufal.githubuser.R
@@ -26,7 +27,11 @@ class TopUserActivity : AppCompatActivity() {
     }
 
     private fun showTopUserList() {
-        mHomeViewModel.getUserHomeViewModel().observe(this,{
+        mHomeViewModel.getUserHomeViewModel(this).observe(this,{
+            binding.apply{
+                rvTopUser.visibility = View.VISIBLE
+                pbTopUser.visibility = View.GONE
+            }
             val adapter = UserAdapter(it)
             binding.apply {
                 rvTopUser.setHasFixedSize(true)

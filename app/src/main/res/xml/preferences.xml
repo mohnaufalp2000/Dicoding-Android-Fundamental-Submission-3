@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="settings_preferences"
     app:iconSpaceReserved="false">
 
     <SwitchPreference
         android:key="@string/key_reminder"
-        android:title="Set Reminder"
+        android:title="@string/set_reminder"
         android:singleLine="true"
+        android:icon="@drawable/ic_baseline_notifications_active_24"
         app:iconSpaceReserved="false"
+        app:allowDividerBelow="true"
         />
+
+    <Preference
+        android:key="@string/key_language"
+        android:title="@string/language"
+        android:icon="@drawable/ic_baseline_language_24"
+        app:allowDividerAbove="true"/>
 
 </PreferenceScreen>
